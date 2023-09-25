@@ -1,0 +1,31 @@
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #97cce6;
+    padding: 0px 40px;
+    color: black;
+    min-height: 10vh;
+}
+
+.header-left {
+    
+    border-radius: 10px;
+    padding: 0px 50px;
+    cursor: pointer;
+}
+
+.header-left:hover {
+    color: white
+}
+
+.header-right {
+    display: flex;
+    gap: 50px;
+}
+
+.header-right > *:hover {
+    cursor: pointer;
+    color: white;
+}
