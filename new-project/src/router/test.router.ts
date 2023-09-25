@@ -11,6 +11,7 @@ testRouter.put('/:id', (req: Request, res: Response) => {
     // test put
     const id = req.params.id;
     const body = req.body;
+    console.log(id)
     console.log(body);
     res.status(200).json({ message: `Hello World! From the test router with id ${id}` });
 });

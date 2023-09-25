@@ -3,7 +3,11 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 
 import testRouter from './router/test.router'
+import gamesRouter from './router/games.router'
+
 import connectDB from './util/connectDB';
+
+import { getAllGames } from './service/games.service';
 
 dotenv.config();
 
@@ -15,16 +19,28 @@ const port = process.env.PORT || '8080';
 app.use(express.json());
 
 app.use('/test', testRouter);
+app.use('/games', gamesRouter);
 
-mongoose.connection.once(port, () => {
-
-    app.get('/', (req: Request, res: Response) => {
-        res.send('Hello World! From the server');
-      });
-      
-    app.listen(port, () => {
-        console.log(`[server]: Server is running at http://localhost:${port}`);
+app.get('/', (req: Request, res: Response) => {
+    res.send('Hello World! From the server');
     });
-
+    
+app.listen(port, () => {
+    console.log(`[server]: Server is running at http://localhost:${port}`);
 });
 
+/*
+
+app.get('/games', async (req: Request, res: Response) => {
+    try {
+        const games = await getAllGames();
+        return res.status(200).json({ games });
+    }
+    catch (e) {
+        console.log(e);
+        return res.status(500).send(e);
+    }
+    
+});
+
+*/

@@ -1,6 +1,6 @@
 import mongoose, { Document } from "mongoose";
 
-export interface GameDocument extends Document {
+export interface GamesDocument extends Document {
     boardSize: number;
     date: string,
     gameOutcome: string,
@@ -14,4 +14,4 @@ const gameSchema = new mongoose.Schema({
     gameHistory: { type: [[String]], required: true }
 });
 
-export default mongoose.model<GameDocument>('Game', gameSchema);
+export default mongoose.model<GamesDocument>('Game', gameSchema);
