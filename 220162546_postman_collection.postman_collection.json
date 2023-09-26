@@ -1,0 +1,126 @@
+{
+	"info": {
+		"_postman_id": "baaebc42-34f7-4bc4-8f70-a7a04b0d8f36",
+		"name": "220162546_postman_collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30002456"
+	},
+	"item": [
+		{
+			"name": "Get list of played games",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/games",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"games"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a new game",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"boardSize\": 3,\r\n  \"date\": \"2023-08-14T14:14:24.756Z\",\r\n  \"gameOutcome\": \"draw\",\r\n  \"gameHistory\": [\r\n    [\r\n      \"empty\",\r\n      \"empty\",\r\n      \"empty\",\r\n      \"empty\",\r\n      \"empty\",\r\n      \"empty\",\r\n      \"empty\",\r\n      \"empty\",\r\n      \"empty\"\r\n    ],\r\n    [\r\n      \"black\",\r\n      \"empty\",\r\n      \"empty\",\r\n      \"empty\",\r\n      \"empty\",\r\n      \"empty\",\r\n      \"empty\",\r\n      \"empty\",\r\n      \"empty\"\r\n    ],\r\n    [\r\n      \"black\",\r\n      \"empty\",\r\n      \"empty\",\r\n      \"empty\",\r\n      \"white\",\r\n      \"empty\",\r\n      \"empty\",\r\n      \"empty\",\r\n      \"empty\"\r\n    ],\r\n    [\r\n      \"black\",\r\n      \"empty\",\r\n      \"empty\",\r\n      \"black\",\r\n      \"white\",\r\n      \"empty\",\r\n      \"empty\",\r\n      \"empty\",\r\n      \"empty\"\r\n    ],\r\n    [\r\n      \"black\",\r\n      \"empty\",\r\n      \"empty\",\r\n      \"black\",\r\n      \"white\",\r\n      \"empty\",\r\n      \"white\",\r\n      \"empty\",\r\n      \"empty\"\r\n    ],\r\n    [\r\n      \"black\",\r\n      \"empty\",\r\n      \"empty\",\r\n      \"black\",\r\n      \"white\",\r\n      \"empty\",\r\n      \"white\",\r\n      \"black\",\r\n      \"empty\"\r\n    ],\r\n    [\r\n      \"black\",\r\n      \"white\",\r\n      \"empty\",\r\n      \"black\",\r\n      \"white\",\r\n      \"empty\",\r\n      \"white\",\r\n      \"black\",\r\n      \"empty\"\r\n    ],\r\n    [\r\n      \"black\",\r\n      \"white\",\r\n      \"black\",\r\n      \"black\",\r\n      \"white\",\r\n      \"empty\",\r\n      \"white\",\r\n      \"black\",\r\n      \"empty\"\r\n    ],\r\n    [\r\n      \"black\",\r\n      \"white\",\r\n      \"black\",\r\n      \"black\",\r\n      \"white\",\r\n      \"white\",\r\n      \"white\",\r\n      \"black\",\r\n      \"empty\"\r\n    ],\r\n    [\r\n      \"black\",\r\n      \"white\",\r\n      \"black\",\r\n      \"black\",\r\n      \"white\",\r\n      \"white\",\r\n      \"white\",\r\n      \"black\",\r\n      \"black\"\r\n    ]\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/games",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"games"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve single game with game ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/games/65115c35aa9573cbeb18beda",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"games",
+						"65115c35aa9573cbeb18beda"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Game by incorrect ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/games/incorrectID",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"games",
+						"incorrectID"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get a games result (win/draw).",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"grid\": [\r\n        \"empty\",\r\n        \"empty\",\r\n        \"black\",\r\n        \"empty\",\r\n        \"empty\",\r\n        \"empty\",\r\n        \"empty\",\r\n        \"black\",\r\n        \"empty\",\r\n        \"empty\",\r\n        \"white\",\r\n        \"empty\",\r\n        \"black\",\r\n        \"white\",\r\n        \"empty\",\r\n        \"empty\",\r\n        \"empty\",\r\n        \"black\",\r\n        \"white\",\r\n        \"empty\",\r\n        \"empty\",\r\n        \"empty\",\r\n        \"black\",\r\n        \"empty\",\r\n        \"white\"\r\n    ],\r\n    \"gridSize\": 5,\r\n    \"cellIndex\": 2,\r\n    \"valueToCheck\": \"black\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/games/gameResult",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"games",
+						"gameResult"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
