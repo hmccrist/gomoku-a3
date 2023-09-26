@@ -1,6 +1,6 @@
 
-import { useContext } from "react"
-import { Navigate } from "react-router-dom"
+import { useCallback, useContext, useEffect, useState } from "react"
+import { Navigate, useNavigate } from "react-router-dom"
 import { UserContext } from "../context/UserContext"
 
 import { useLocalStorage } from "../hooks/useLocalStorage"
@@ -8,9 +8,32 @@ import { useLocalStorage } from "../hooks/useLocalStorage"
 import { GameLogEntry, GameLogEntryProps } from "../components/GameLogEntry"
 import { GameLog } from "../types/GameLogType"
 
+import { get } from '../utils/http'
+
 export default function GameHistoryPage() {
 
-    const [gameLogs] = useLocalStorage("gameLogs", [])
+    //const [gameLogs] = useLocalStorage("gameLogs", [])
+
+    // get gameLogs from DB instead of local storage now!
+    const [gameLogs, setGameLogs] = useState<Array<GameLog>>([])
+
+    const navigate = useNavigate()
+
+
+    const fetchGameLogs = useCallback(async () => {
+        try {
+            const result: any = await get('http://localhost:8080/games')
+            setGameLogs(result.games)
+        }
+        catch (error) {
+            console.log(error)
+            navigate('/')
+        }
+    }, [navigate])
+
+    useEffect(() => {
+        fetchGameLogs()
+    }, [fetchGameLogs])
 
     // Page is protected, if user is not logged in, redirect to login page
     const { user } = useContext(UserContext)
