@@ -8,7 +8,7 @@ import style from './Game.module.css'
 import { useLocation } from "react-router-dom";
 import { useNavigate } from 'react-router-dom'
 import { GameLog } from "../../types/GameLogType";
-import { saveGameLog } from "../../utils/GameLogUtils";
+import { saveGameLog, saveGameLogDB } from "../../utils/GameLogUtils";
 import { get, put } from '../../utils/http'
 
 type PlayerTurn = 'white' | 'black'
@@ -206,14 +206,15 @@ export default function Game(props: GameProps) {
 
     // If game is not finished, navigate to homepage.
     // If game is finished, store a GameLog in local storage and then navigate to GameLogPage
-    function handleLeave() {
+    async function handleLeave() {
         if (gameState === 'playing') {
             navigate('/')
             return
         }
         const gameLog = createGameLog()
         if (gameLog) {
-            saveGameLog(gameLog)
+            //saveGameLog(gameLog)
+            await saveGameLogDB(gameLog)
         }
         navigate('/games')
     }
