@@ -1,6 +1,8 @@
 import express, { Request, Response } from 'express';
 import { getAllGames, createGame, getGameById } from '../service/games.service';
 
+import { checkGomokuDraw, checkGomokuWin } from '../util/checkGameStatus';
+
 const gamesRouter = express.Router();
 
 gamesRouter.get('/', async (req: Request, res: Response) => {
@@ -35,6 +37,27 @@ gamesRouter.post('/', async (req: Request, res: Response) => {
     const body = req.body;
     const newGame = await createGame(body);
     return res.status(200).send(newGame)
+});
+
+
+// Handles calculating a gameResult provided with the correct information.
+gamesRouter.put('/gameResult', async (req: Request, res: Response) => {
+    console.log(`PUT /games/gameResult`);
+    const body = req.body;
+    //console.log(body);
+    let win = false;
+    let draw = false;
+
+    try {
+        win = checkGomokuWin(body.grid, body.gridSize, body.cellIndex, body.valueToCheck);
+        draw = checkGomokuDraw(body.grid, 'empty');
+    }
+    catch {
+        return res.status(500).send('Error checking game status');
+    }
+
+    return res.status(200).send({ win, draw });
+
 });
 
 

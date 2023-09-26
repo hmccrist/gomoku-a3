@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import Board, { BoardProps } from "./Board";
 import { SquareProps } from "./Square";
@@ -9,6 +9,7 @@ import { useLocation } from "react-router-dom";
 import { useNavigate } from 'react-router-dom'
 import { GameLog } from "../../types/GameLogType";
 import { saveGameLog } from "../../utils/GameLogUtils";
+import { get, put } from '../../utils/http'
 
 type PlayerTurn = 'white' | 'black'
 type gameState = 'playing' | 'draw' | 'blackWin' | 'whiteWin'
@@ -31,6 +32,34 @@ export default function Game(props: GameProps) {
     const currentSquares = history[currentMove]
     const location = useLocation()
     const navigate = useNavigate()
+
+    // testing a get request
+    const API_HOST = "http://localhost:8080"
+    const API_URL = `${API_HOST}/games/gameResult`
+    type resultJSON = {
+        win: boolean,
+        draw: boolean
+    }
+
+    const test = useCallback(async (nextSquares: Array<string>, boardSize: number, squareClicked: number, playerTurn: string) => {
+        try {
+            const data = {
+                grid: nextSquares,
+                gridSize: boardSize,
+                cellIndex: squareClicked,
+                valueToCheck: playerTurn
+            }
+            console.log(data)
+            //console.log(`Sending request to server... ${API_URL}`)
+
+            const result: resultJSON = await put(API_URL, data)
+            return result
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }, [])
+
 
     // Set the board size initially based on the location state.
     // This is used when navigating from the homepage.
@@ -60,7 +89,7 @@ export default function Game(props: GameProps) {
 
     // Ran when a square is clicked.
     // nextSquares is the new squares array to be set.
-    function handleClick(squareClicked: number) {
+    async function handleClick(squareClicked: number) {
 
         // If the game is over, don't do anything.
         if (gameState !== 'playing') return
@@ -72,21 +101,28 @@ export default function Game(props: GameProps) {
         // Otherwise, set the square to the player's turn.
         nextSquares[squareClicked] = playerTurn 
 
+        // Get a gameResult from the backend - if no response then return with an error.
+        const result = await test(nextSquares, boardSize, squareClicked, playerTurn)
+        if (!result) {
+            console.log('Error: no response from server.')
+            return
+        }
+        console.log(`win: ${result.win} draw: ${result.draw}`)
+
         // Update history
         const nextHistory = [...history.slice(0, currentMove + 1), nextSquares]
         setHistory(nextHistory)
         // Update current move
         setCurrentMove(nextHistory.length - 1)    
         
-        // Check for win
-        // If win, update game state
-        if (checkWin(nextSquares, boardSize, squareClicked, playerTurn)) {
+        // Check for win or draw - this now done over backend
+
+        if (result.win) {
             setGameState(playerTurn === 'white' ? 'whiteWin' : 'blackWin')
             return
         }
 
-        // Check for draw
-        if (checkGomokuDraw(nextSquares, 'empty')) {
+        if (result.draw) {
             setGameState('draw')
             return
         }

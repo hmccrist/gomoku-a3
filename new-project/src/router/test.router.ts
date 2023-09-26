@@ -4,6 +4,7 @@ const testRouter = express.Router();
 
 testRouter.get('/', (req: Request, res: Response) => {
     //res.send('Hello World! From the test router');
+    console.log(`Connection from ${req.ip}`);
     res.status(200).json({ message: 'Hello World! From the test router' });
 });
 
