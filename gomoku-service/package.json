@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/app.ts",
     "bootstrapdb": "ts-node src/util/bootstrapdb.ts",
-    "start": "npx tsc && node dist/index.js",
+    "postinstall": "tsc",
+    "start": "node dist/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
