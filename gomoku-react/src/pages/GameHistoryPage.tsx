@@ -9,6 +9,7 @@ import { GameLogEntry, GameLogEntryProps } from "../components/GameLogEntry"
 import { GameLog } from "../types/GameLogType"
 
 import { get } from '../utils/http'
+import { API_HOST } from "../constants"
 
 export default function GameHistoryPage() {
 
@@ -22,7 +23,7 @@ export default function GameHistoryPage() {
 
     const fetchGameLogs = useCallback(async () => {
         try {
-            const result: any = await get('http://localhost:8080/games')
+            const result: any = await get(`${API_HOST}/games`)
             setGameLogs(result.games)
         }
         catch (error) {

@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom'
 import { GameLog } from "../../types/GameLogType";
 import { saveGameLog, saveGameLogDB } from "../../utils/GameLogUtils";
 import { get, put } from '../../utils/http'
+import { API_HOST } from "../../constants";
 
 type PlayerTurn = 'white' | 'black'
 type gameState = 'playing' | 'draw' | 'blackWin' | 'whiteWin'
@@ -34,7 +35,7 @@ export default function Game(props: GameProps) {
     const navigate = useNavigate()
 
     // testing a get request
-    const API_HOST = "http://localhost:8080"
+    //const API_HOST = "http://localhost:8080"
     const API_URL = `${API_HOST}/games/gameResult`
     type resultJSON = {
         win: boolean,

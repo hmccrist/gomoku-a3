@@ -6,6 +6,7 @@ import { GameLog } from "../types/GameLogType"
 import { useLocalStorage } from "../hooks/useLocalStorage"
 import Game from "../components/gomoku/Game"
 import { get } from "../utils/http"
+import { API_HOST } from "../constants"
 
 export default function GameLogPage() {
 
@@ -20,7 +21,7 @@ export default function GameLogPage() {
 
     const fetchGameLogs = useCallback(async () => {
         try {
-            const result: any = await get('http://localhost:8080/games')
+            const result: any = await get(`${API_HOST}/games`)
             setGameLogs(result.games)
             setLoading(false)
         }

@@ -1,3 +1,4 @@
+import { API_HOST } from "../constants";
 import { GameLog } from "../types/GameLogType";
 import { post } from "./http";
 
@@ -24,7 +25,7 @@ export function getSavedGameLogCount(): number {
 
 // save the gameLog to the database.
 export async function saveGameLogDB(gl: GameLog) {
-    const result: any = await post('http://localhost:8080/games', gl)
+    const result: any = await post(`${API_HOST}/games`, gl)
     console.log(result)
 }
 
